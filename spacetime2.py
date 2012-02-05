@@ -64,4 +64,15 @@ def spacetime_diagram(fig, frame, upper_limit=10.0,
     fig.legend((line_of_pos[0], line_of_simul[0]),(r'$x^\prime=$constant',r'$ct^\prime=$constant'))
     return ax
     
+def make_spacetime(betas,save_format='png'):
+    """"Make and save spacetime diagram for a list of beta values"""
+    from frame import Frame
 
+    fig = plt.figure(1)
+    for beta in betas:
+        frame = Frame(beta)
+        fig.clf()
+        ax = spacetime_diagram(fig, frame)
+        ax.set_xlabel(r'$x$')
+        ax.set_ylabel(r'$ct$')
+        fig.savefig('spacetime_0-%i.%s' % (np.int32(1000*beta),save_format))
